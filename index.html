@@ -1,0 +1,32 @@
+# Dashboard DST La Tirana 2026 — DAS / I. Municipalidad de Pozo Almonte
+
+Panel interactivo del Dispositivo de Salud Transitorio (DST) La Tirana:
+demanda, perfil epidemiológico, actividad de móviles (M1/M2) y procedencia
+de los pacientes. Comparación 2025 vs 2026. Archivo único autocontenido
+(`index.html`), sin dependencias externas.
+
+## Publicar con GitHub Pages
+
+### Opción rápida con GitHub CLI
+```bash
+gh repo create das-impa/dst-tirana-2026 --public --source=. --push
+# luego: Settings → Pages → Source: Deploy from a branch → main / (root)
+```
+Queda disponible en: https://das-impa.github.io/dst-tirana-2026/
+
+### Opción manual (git)
+```bash
+git init && git add . && git commit -m "Dashboard DST La Tirana 2026"
+git branch -M main
+git remote add origin https://github.com/das-impa/dst-tirana-2026.git
+git push -u origin main
+```
+Después, en el repo: **Settings → Pages → Deploy from a branch → main / root**.
+
+### Opción sin consola (web)
+1. github.com → New repository → nombre `dst-tirana-2026` (público).
+2. "uploading an existing file" → arrastrar `index.html`.
+3. Settings → Pages → Deploy from a branch → main / root → Save.
+
+## Actualizar los datos
+Reemplazar `index.html` por la nueva versión y hacer commit/push (o subirlo por la web).
