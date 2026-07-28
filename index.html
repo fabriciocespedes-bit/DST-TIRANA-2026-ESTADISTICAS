@@ -91,6 +91,7 @@ tr:nth-child(even) td{background:#F8FAFD;}tr:nth-child(even):hover td{background
     <div class="tab" data-tab="perfil">Perfil epidemiológico</div>
     <div class="tab" data-tab="moviles">Móviles (M1 / M2)</div>
     <div class="tab" data-tab="proc">Procedencia</div>
+    <div class="tab" data-tab="prev">Previsión</div>
   </div>
   <div class="filters" id="globalFilters">
     <div class="fg"><label>Año</label><div class="chips">
@@ -157,6 +158,17 @@ tr:nth-child(even) td{background:#F8FAFD;}tr:nth-child(even):hover td{background
         <li><b>Prevención dirigida al origen:</b> orientar campañas preventivas (respiratorio, hidratación, control de crónicos) hacia las regiones emisoras antes de la peregrinación.</li>
       </ul></div>
     <div class="note">Fuente: <i>Planilla de Urgencia SUR La Tirana — hoja "DST TIRANA 26"</i> (registro folio a folio 2026). Se excluyeron 59 folios nulos; los indicadores se calculan sobre los 2.324 registros con procedencia (91% de los válidos) y se expresan respetando el total oficial de 2.388 atenciones. El 8,7% sin dato de residencia queda fuera del denominador.</div>
+  </section>
+  <section id="tab-prev" class="hide">
+    <div class="kpis" id="kpisPrev"></div>
+    <div class="card"><h3>Composición de la demanda por previsión de salud</h3>
+      <div class="sub">Folios según previsión · base: 2.388 atenciones (2026)</div>
+      <div class="stack100" id="prevStack"></div><div class="stackleg" id="prevStackLeg"></div></div>
+    <div class="grid2">
+      <div class="card"><h3>Evolución diaria por previsión</h3><div class="sub">N° de atenciones por día (9–19 jul)</div><div class="chz sm"><canvas id="chPrevDia"></canvas></div></div>
+      <div class="card"><h3>Detalle por tipo de previsión</h3><div class="sub">N° y % sobre 2.388</div><div class="chz sm"><canvas id="chPrevCat"></canvas></div></div>
+    </div>
+    <div class="note">Fuente: <i>Folios según previsión</i> (2026). Los totales coinciden con las 2.388 atenciones oficiales del DST La Tirana.</div>
   </section>
   <div class="foot">Fuentes: Monitoreo DST 2026 · Consolidado SEREMI 2026 · Estadísticas DST 2025 · Salida de Móviles 2026. Documento de trabajo — DAS, I. Municipalidad de Pozo Almonte.</div>
 </div>
@@ -290,6 +302,92 @@ const PROC = {
   "Calama": 2.2
  }
 };
+const PREV = {
+ "total": 2388,
+ "days": [
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19
+ ],
+ "cats": {
+  "FONASA": 2212.0,
+  "ISAPRE": 89.0,
+  "Sin previsión": 66.0,
+  "DIPRECA": 13.0,
+  "PRAIS": 7.0,
+  "JEAFOSALE": 1.0
+ },
+ "daily": {
+  "FONASA": [
+   71.0,
+   124.0,
+   146.0,
+   193.0,
+   227.0,
+   252.0,
+   279.0,
+   297.0,
+   252.0,
+   199.0,
+   172.0
+  ],
+  "ISAPRE": [
+   1.0,
+   2.0,
+   7.0,
+   6.0,
+   12.0,
+   7.0,
+   15.0,
+   17.0,
+   10.0,
+   6.0,
+   6.0
+  ],
+  "Sin previsión": [
+   3.0,
+   2.0,
+   8.0,
+   4.0,
+   9.0,
+   3.0,
+   6.0,
+   12.0,
+   12.0,
+   1.0,
+   6.0
+  ],
+  "Otras (PRAIS/DIPRECA/otros)": [
+   2.0,
+   1.0,
+   0.0,
+   1.0,
+   2.0,
+   0.0,
+   2.0,
+   7.0,
+   5.0,
+   0.0,
+   1.0
+  ]
+ },
+ "pct": {
+  "FONASA": 92.6,
+  "ISAPRE": 3.7,
+  "Sin previsión": 2.8,
+  "DIPRECA": 0.5,
+  "PRAIS": 0.3,
+  "JEAFOSALE": 0.0
+ }
+};
 const YCOL={'2025':'#9AA6B2','2026':'#1F3684'};
 const EDADG=['0-14','15-64','65+'];
 const CAUSAS=['Respiratorio','Circulatorio','Diarrea','Traumatismo','Salud mental','Demás causas'];
@@ -379,6 +477,27 @@ function refreshMov(){const rows=filteredMov();$('movCount').textContent=rows.le
   const s2=dd.map(d=>rows.filter(x=>x.dia==d&&x.tipo[1]=='2').length);
   drawVBars('chMovDia',dd.map(d=>''+d),[{label:'M1 (local)',color:'#1F3684',data:s1},{label:'M2 (SAMU)',color:'#F5A81B',data:s2}],{stacked:true});
   $('movTbody').innerHTML=rows.map(x=>`<tr><td>${x.fecha}</td><td><span class="badge ${x.tipo[1]=='1'?'bM1':'bM2'}">${x.tipo[1]=='1'?'M1':'M2'}</span></td><td>${x.unidad}</td><td>${x.categoria}</td><td>${x.funcion}</td><td>${x.destino}</td><td>${x.motivo}</td></tr>`).join('');}
+function renderPrev(){
+  const c=PREV.cats,t=PREV.total,p=PREV.pct;
+  $('kpisPrev').innerHTML=
+    kpiCard('','users',p['FONASA'],1,'%','FONASA','~'+c['FONASA'].toLocaleString('es-CL')+' atenciones','')+
+    kpiCard('','hosp',p['ISAPRE'],1,'%','ISAPRE (facturable)',c['ISAPRE']+' atenciones','')+
+    kpiCard('g','route',p['Sin previsión'],1,'%','Sin previsión',c['Sin previsión']+' · sin cobertura','')+
+    kpiCard('s','cal',t,0,'','Total atenciones (base)','6 previsiones registradas','flat');
+  countUp($('kpisPrev'));
+  const otras=c['DIPRECA']+c['PRAIS']+c['JEAFOSALE'];
+  const comp=[['FONASA',+(100*c['FONASA']/t).toFixed(1),'#1F3684'],['ISAPRE',+(100*c['ISAPRE']/t).toFixed(1),'#1F67B4'],['Sin previsión',+(100*c['Sin previsión']/t).toFixed(1),'#F05E22'],['Otras',+(100*otras/t).toFixed(1),'#9AA6B2']];
+  $('prevStack').innerHTML=comp.map(x=>`<div class="seg" style="width:${Math.max(x[1],0.6)}%;background:${x[2]}">${x[1]>=3?x[1]+'%':''}</div>`).join('');
+  $('prevStackLeg').innerHTML=comp.map(x=>`<span class="lg"><i style="background:${x[2]}"></i>${x[0]} · ${x[1]}%</span>`).join('');
+  const d=PREV.daily,days=PREV.days.map(x=>''+x);
+  drawVBars('chPrevDia',days,[
+    {label:'FONASA',color:'#1F3684',data:d['FONASA']},
+    {label:'ISAPRE',color:'#1F67B4',data:d['ISAPRE']},
+    {label:'Sin previsión',color:'#F05E22',data:d['Sin previsión']},
+    {label:'Otras',color:'#9AA6B2',data:d['Otras (PRAIS/DIPRECA/otros)']}],{stacked:true});
+  const ent=Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  drawHBars('chPrevCat',ent.map(e=>e[0]),ent.map(e=>e[1]),'#1F3684');
+}
 function renderProc(){
   $('kpisProc').innerHTML=
     kpiCard('g','route',PROC.fuera_comuna,1,'%','Fuera de la comuna de Pozo Almonte','~2.190 de 2.388','')+
@@ -393,9 +512,9 @@ function renderProc(){
   const coms=Object.entries(PROC.top_comunas).slice(0,8);drawHBars('chProcCom',coms.map(r=>r[0]),coms.map(r=>r[1]),'#1F67B4','%');
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
-  const tb=t.dataset.tab;['demanda','perfil','moviles','proc'].forEach(n=>$('tab-'+n).classList.toggle('hide',n!=tb));
-  const isP=tb=='proc';$('globalFilters').style.display=isP?'none':'flex';$('kpis').style.display=isP?'none':'grid';
-  setTimeout(()=>{if(isP)renderProc();else{refresh();refreshMov();}},15);});
+  const tb=t.dataset.tab;['demanda','perfil','moviles','proc','prev'].forEach(n=>$('tab-'+n).classList.toggle('hide',n!=tb));
+  const isP=(tb=='proc'||tb=='prev');$('globalFilters').style.display=isP?'none':'flex';$('kpis').style.display=isP?'none':'grid';
+  setTimeout(()=>{if(tb=='proc')renderProc();else if(tb=='prev')renderPrev();else{refresh();refreshMov();}},15);});
 window.addEventListener('resize',()=>{refresh();refreshMov();});
-initDays();fillMovFilters();refresh();refreshMov();renderProc();
+initDays();fillMovFilters();refresh();refreshMov();renderProc();renderPrev();
 </script></body></html>
