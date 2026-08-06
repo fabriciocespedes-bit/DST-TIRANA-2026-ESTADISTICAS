@@ -92,6 +92,8 @@ tr:nth-child(even) td{background:#F8FAFD;}tr:nth-child(even):hover td{background
     <div class="tab" data-tab="moviles">Móviles (M1 / M2)</div>
     <div class="tab" data-tab="proc">Procedencia</div>
     <div class="tab" data-tab="prev">Previsión</div>
+    <div class="tab" data-tab="fin">Financiero</div>
+    <div class="tab" data-tab="act">Actividades</div>
   </div>
   <div class="filters" id="globalFilters">
     <div class="fg"><label>Año</label><div class="chips">
@@ -169,6 +171,40 @@ tr:nth-child(even) td{background:#F8FAFD;}tr:nth-child(even):hover td{background
       <div class="card"><h3>Detalle por tipo de previsión</h3><div class="sub">N° y % sobre 2.388</div><div class="chz sm"><canvas id="chPrevCat"></canvas></div></div>
     </div>
     <div class="note">Fuente: <i>Folios según previsión</i> (2026). Los totales coinciden con las 2.388 atenciones oficiales del DST La Tirana.</div>
+  </section>
+  <section id="tab-fin" class="hide">
+    <div class="kpis" id="kpisFin"></div>
+    <div class="grid2">
+      <div class="card"><h3>Presupuesto planificado vs. gasto real</h3><div class="sub">Por componente (millones de pesos)</div><div class="chz sm"><canvas id="chFin"></canvas></div></div>
+      <div class="card"><h3>Detalle por componente</h3><div class="sub">Planificado, real y delta</div>
+        <div class="tblwrap" style="max-height:270px"><table><thead><tr><th>Componente</th><th class="n">Planificado</th><th class="n">Real</th><th class="n">Delta</th></tr></thead><tbody>
+        <tr><td>RRHH</td><td class="n">$58.998.000</td><td class="n">$58.257.000</td><td class="n" style="color:#2E7D4F;font-weight:700">+$741.000</td></tr>
+        <tr><td>Fármacos e insumos</td><td class="n">$20.782.809</td><td class="n">$16.726.615</td><td class="n" style="color:#2E7D4F;font-weight:700">+$4.056.194</td></tr>
+        <tr><td>Equip. clínico · 2591-653</td><td class="n">—</td><td class="n">$2.828.587</td><td class="n" style="color:#C0392B;font-weight:700">−$2.828.587</td></tr>
+        <tr><td>Equip. clínico · 2591-681</td><td class="n">$5.800.000</td><td class="n">$5.343.100</td><td class="n" style="color:#2E7D4F;font-weight:700">+$456.900</td></tr>
+        <tr><td>Oxígeno</td><td class="n">$1.200.000</td><td class="n">—</td><td class="n" style="color:#2E7D4F;font-weight:700">+$1.200.000</td></tr>
+        <tr style="font-weight:800;background:#EEF2FB"><td>TOTAL</td><td class="n">$86.780.809</td><td class="n">$83.155.302</td><td class="n">$3.625.507</td></tr>
+        </tbody></table></div></div>
+    </div>
+    <div class="card" style="border-left:5px solid #FAAF18;"><h3>Uso del saldo (delta positivo) — Pertinencia técnica SST</h3>
+      <p style="font-size:13px;color:#3A4353;margin:0">Para el <b>delta positivo de $3.625.507</b>, se otorgó la <b>pertinencia técnica desde el SST</b> para la <b>compra de una camilla hidráulica de reanimación</b> (ítem de equipamiento clínico 2591-653, $2.828.587), financiada con los ahorros de los demás componentes y manteniendo el cierre con saldo a favor.</p></div>
+    <div class="note">Fuente: ejecución presupuestaria DST La Tirana 2026 (componentes RRHH, fármacos e insumos, equipamiento clínico y oxígeno).</div>
+  </section>
+  <section id="tab-act" class="hide">
+    <div class="kpis" id="kpisAct"></div>
+    <div class="card"><h3>Actividades de promoción y atención en terreno</h3><div class="sub">Equipo multidisciplinario · La Tirana y localidades del sector</div>
+      <div class="tblwrap"><table><thead><tr><th>Fecha</th><th>Actividad</th><th>Estamento / equipo</th><th>Resultado</th></tr></thead><tbody>
+      <tr><td>09-07</td><td><b>Educación grupal</b> — hidratación, cuidados frente a altas temperaturas y criterios de atención del DST</td><td>Trabajador social · Prevencionista de riesgos</td><td><b>91 usuarios</b></td></tr>
+      <tr><td>15-07</td><td><b>Visita Domiciliaria Integral (VDI)</b> a adultos mayores del poblado de La Tirana</td><td>Médico · Trabajador social · Enfermería · Psicología · Kinesiología</td><td><b>8 usuarios</b></td></tr>
+      <tr><td>17-07</td><td><b>Operativo de salud</b> — Huertos Familiares</td><td>Médico · Trabajador social · Nutricionista · Enfermería · TENS</td><td>5 atenciones médicas · 6 actividades de promoción · educación por radioemisora</td></tr>
+      <tr><td>18-07</td><td><b>Operativo de salud</b> — Cordillera</td><td>Médico · Trabajador social · Nutricionista · TENS · Kinesiología</td><td>Médico 16 · T. Social 10 · Nutrición 17 · Kinesiología 12 · TENS 15 <b>(70)</b></td></tr>
+      </tbody></table></div></div>
+    <div class="card"><h3>Prestaciones preventivas</h3><div class="sub">Inmunización y detección temprana de riesgos</div>
+      <div class="tblwrap" style="max-height:200px"><table><thead><tr><th>Prestación</th><th>Descripción</th><th class="n">N° realizados</th></tr></thead><tbody>
+      <tr><td><b>Vacunatorio</b></td><td>Inmunización a la población durante el operativo (esquema vigente / campaña estacional)</td><td class="n" style="color:#B47500;font-style:italic">por confirmar</td></tr>
+      <tr><td><b>Examen de Medicina Preventiva (EMPA/EMP)</b></td><td>Pesquisa y control de factores de riesgo en población adulta y adulta mayor</td><td class="n" style="color:#B47500;font-style:italic">por confirmar</td></tr>
+      </tbody></table></div></div>
+    <div class="note">Fuente: registro de actividades comunitarias DST La Tirana 2026. Los N° de vacunatorio y examen de medicina preventiva se completan según registro.</div>
   </section>
   <div class="foot">Fuentes: Monitoreo DST 2026 · Consolidado SEREMI 2026 · Estadísticas DST 2025 · Salida de Móviles 2026. Documento de trabajo — DAS, I. Municipalidad de Pozo Almonte.</div>
 </div>
@@ -477,6 +513,24 @@ function refreshMov(){const rows=filteredMov();$('movCount').textContent=rows.le
   const s2=dd.map(d=>rows.filter(x=>x.dia==d&&x.tipo[1]=='2').length);
   drawVBars('chMovDia',dd.map(d=>''+d),[{label:'M1 (local)',color:'#1F3684',data:s1},{label:'M2 (SAMU)',color:'#F5A81B',data:s2}],{stacked:true});
   $('movTbody').innerHTML=rows.map(x=>`<tr><td>${x.fecha}</td><td><span class="badge ${x.tipo[1]=='1'?'bM1':'bM2'}">${x.tipo[1]=='1'?'M1':'M2'}</span></td><td>${x.unidad}</td><td>${x.categoria}</td><td>${x.funcion}</td><td>${x.destino}</td><td>${x.motivo}</td></tr>`).join('');}
+function renderFin(){
+  $('kpisFin').innerHTML=
+    `<div class="kpi"><div class="ic">${ICO.hist}</div><div class="n">$86,8M</div><div class="l">Presupuesto planificado</div></div>`+
+    `<div class="kpi"><div class="ic">${ICO.hist}</div><div class="n">$83,2M</div><div class="l">Gasto real ejecutado</div></div>`+
+    `<div class="kpi g"><div class="ic">${ICO.peak}</div><div class="n" style="color:#2E7D4F">+$3,6M</div><div class="l">Saldo (delta positivo)</div><div class="d flat">a favor</div></div>`+
+    `<div class="kpi b"><div class="ic">${ICO.pulse}</div><div class="n">95,8%</div><div class="l">Ejecución presupuestaria</div></div>`;
+  drawVBars('chFin',['RRHH','Fármacos','Equip. clínico','Oxígeno'],
+    [{label:'Planificado',color:'#9AA6B2',data:[58.998,20.782809,5.800,1.200]},
+     {label:'Real ejecutado',color:'#1F3684',data:[58.257,16.726615,8.171687,0]}],{});
+}
+function renderAct(){
+  $('kpisAct').innerHTML=
+    kpiCard('','cal',4,0,'','Actividades en terreno','educación · VDI · operativos','')+
+    kpiCard('g','users',170,0,'+','Beneficiarios directos','promoción y prevención','')+
+    kpiCard('b','route',3,0,'','Localidades intervenidas','La Tirana · Huertos · Cordillera','')+
+    kpiCard('','hosp',2,0,'','Prestaciones preventivas','vacunatorio · EMP','');
+  countUp($('kpisAct'));
+}
 function renderPrev(){
   const c=PREV.cats,t=PREV.total,p=PREV.pct;
   $('kpisPrev').innerHTML=
@@ -512,9 +566,9 @@ function renderProc(){
   const coms=Object.entries(PROC.top_comunas).slice(0,8);drawHBars('chProcCom',coms.map(r=>r[0]),coms.map(r=>r[1]),'#1F67B4','%');
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
-  const tb=t.dataset.tab;['demanda','perfil','moviles','proc','prev'].forEach(n=>$('tab-'+n).classList.toggle('hide',n!=tb));
-  const isP=(tb=='proc'||tb=='prev');$('globalFilters').style.display=isP?'none':'flex';$('kpis').style.display=isP?'none':'grid';
-  setTimeout(()=>{if(tb=='proc')renderProc();else if(tb=='prev')renderPrev();else{refresh();refreshMov();}},15);});
+  const tb=t.dataset.tab;['demanda','perfil','moviles','proc','prev','fin','act'].forEach(n=>$('tab-'+n).classList.toggle('hide',n!=tb));
+  const isP=['proc','prev','fin','act'].includes(tb);$('globalFilters').style.display=isP?'none':'flex';$('kpis').style.display=isP?'none':'grid';
+  setTimeout(()=>{if(tb=='proc')renderProc();else if(tb=='prev')renderPrev();else if(tb=='fin')renderFin();else if(tb=='act')renderAct();else{refresh();refreshMov();}},15);});
 window.addEventListener('resize',()=>{refresh();refreshMov();});
-initDays();fillMovFilters();refresh();refreshMov();renderProc();renderPrev();
+initDays();fillMovFilters();refresh();refreshMov();renderProc();renderPrev();renderFin();renderAct();
 </script></body></html>
